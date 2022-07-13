@@ -11,7 +11,7 @@ permissions:
   contents: read
 
 env:
-  TerraformVersion: 1.2.5
+  TerraformVersion: 1.2.4
   DeployRegion: westeurope
   SharedResourceGroup: devstarops-shared-rg
   SharedStorage: dsosharedstorage
@@ -70,6 +70,7 @@ jobs:
           ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+          frontdoor_admin_password: ${{ secrets.FRONTDOOR_ADMIN_PASSWORD }}
 
   deploy_production:
     name: "Deploy to Production"
@@ -95,3 +96,4 @@ jobs:
           ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+          frontdoor_admin_password: ${{ secrets.FRONTDOOR_ADMIN_PASSWORD }}
