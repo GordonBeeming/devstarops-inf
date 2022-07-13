@@ -8,9 +8,6 @@ inputs:
   terraformVersion:
     required: true
     type: string
-  AZURE_CREDENTIALS:
-    required: true
-    type: string
   ARM_CLIENT_ID:
     required: true
     type: string
