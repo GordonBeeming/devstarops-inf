@@ -45,14 +45,27 @@ resource "azurerm_network_interface" "internal" {
   }
 }
 
-resource "azurerm_network_security_group" "frontdoor-tls" {
-  name                = "${var.environment_name}-dso-tls-frontdoor"
+resource "azurerm_network_security_group" "frontdoor-nsg" {
+  name                = "${var.environment_name}-dso-nsg-frontdoor"
   location            = azurerm_resource_group.main.location
   resource_group_name = azurerm_resource_group.main.name
+
   security_rule {
     access                     = "Allow"
     direction                  = "Inbound"
-    name                       = "tls"
+    name                       = "80-allow"
+    priority                   = 100
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    source_address_prefix      = "*"
+    destination_port_range     = "80"
+    destination_address_prefix = azurerm_network_interface.main.private_ip_address
+  }
+  
+  security_rule {
+    access                     = "Allow"
+    direction                  = "Inbound"
+    name                       = "443-allow"
     priority                   = 100
     protocol                   = "Tcp"
     source_port_range          = "*"
