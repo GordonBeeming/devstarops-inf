@@ -50,7 +50,7 @@ jobs:
           export ARM_ACCESS_KEY=$ACCOUNT_KEY
 
     - name: Terraform
-      uses: ./.github/workflows/terraform-deployto.yml
+      uses: ./.github/actions/terraform-deployto
       with:
         environmentName: test
         terraformVersion: ${{ env.TerraformVersion }}
