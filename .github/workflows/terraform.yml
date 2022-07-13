@@ -21,6 +21,9 @@ jobs:
   setup:
     name: "Setup backend"
     runs-on: ubuntu-latest
+    concurrency:
+      group: setup
+      cancel-in-progress: true
     environment: test
 
     steps:
@@ -46,6 +49,9 @@ jobs:
   deploy_test:
     name: "Deploy to Test"
     runs-on: ubuntu-latest
+    concurrency:
+      group: test
+      cancel-in-progress: true
     needs: setup
     environment:
       name: "test"
@@ -69,6 +75,9 @@ jobs:
     name: "Deploy to Production"
     runs-on: ubuntu-latest
     needs: deploy_test
+    concurrency:
+      group: production
+      cancel-in-progress: true
     environment:
       name: "production"
       # url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
