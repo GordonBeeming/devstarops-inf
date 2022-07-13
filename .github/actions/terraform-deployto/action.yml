@@ -33,6 +33,7 @@ runs:
         terraform_version: ${{ inputs.terraformVersion }}
 
     - name: Terraform Init
+      shell: bash
       run: terraform init -var-file="envs/${{ inputs.environmentName }}.tfvars" -backend-config="envs/${{ inputs.environmentName }}.tfbackend"
       env:
         ARM_CLIENT_ID: ${{ inputs.ARM_CLIENT_ID }}
@@ -41,6 +42,7 @@ runs:
         ARM_TENANT_ID: ${{ inputs.ARM_TENANT_ID }}
 
     - name: Terraform Plan
+      shell: bash
       run: terraform plan -var-file="envs/${{ inputs.environmentName }}.tfvars" -out="envs/${{ inputs.environmentName }}.tfplan"
       env:
         ARM_CLIENT_ID: ${{ inputs.ARM_CLIENT_ID }}
@@ -49,6 +51,7 @@ runs:
         ARM_TENANT_ID: ${{ inputs.ARM_TENANT_ID }}
 
     - name: Terraform Apply
+      shell: bash
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       run: terraform apply -auto-approve -json "envs/${{ inputs.environmentName }}.tfplan"
       env:
