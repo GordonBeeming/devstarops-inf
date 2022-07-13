@@ -1,40 +1,58 @@
-on:
-  workflow_call:
-    inputs:
-      environmentName:
-        required: true
-        type: string
-      terraformVersion:
-        required: true
-        type: string
+name: "terraform deploy to environment"
+description: "Deploy devstarops infra the same for each environment"
+author: "devstarops"
+inputs:
+  environmentName:
+    required: true
+    type: string
+  terraformVersion:
+    required: true
+    type: string
+  AZURE_CREDENTIALS:
+    required: true
+    type: string
+  ARM_CLIENT_ID:
+    required: true
+    type: string
+  ARM_CLIENT_SECRET:
+    required: true
+    type: string
+  ARM_SUBSCRIPTION_ID:
+    required: true
+    type: string
+  ARM_TENANT_ID:
+    required: true
+    type: string
 
-steps:
-  - name: Setup Terraform
-    uses: hashicorp/setup-terraform@v1
-    with:
-      terraform_version: ${{ inputs.terraformVersion }}
+runs:
+  using: "composite"
+  steps:
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: ${{ inputs.terraformVersion }}
 
-  - name: Terraform Init
-    run: terraform init -var-file="envs/${{ inputs.environmentName }}.tfvars" -backend-config="envs/${{ inputs.environmentName }}.tfbackend"
-    env:
-      ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-      ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-      ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+    - name: Terraform Init
+      run: terraform init -var-file="envs/${{ inputs.environmentName }}.tfvars" -backend-config="envs/${{ inputs.environmentName }}.tfbackend"
+      env:
+        ARM_CLIENT_ID: ${{ inputs.ARM_CLIENT_ID }}
+        ARM_CLIENT_SECRET: ${{ inputs.ARM_CLIENT_SECRET }}
+        ARM_SUBSCRIPTION_ID: ${{ inputs.ARM_SUBSCRIPTION_ID }}
+        ARM_TENANT_ID: ${{ inputs.ARM_TENANT_ID }}
 
-  - name: Terraform Plan
-    run: terraform plan -var-file="envs/${{ inputs.environmentName }}.tfvars" -out="envs/${{ inputs.environmentName }}.tfplan"
-    env:
-      ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-      ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-      ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+    - name: Terraform Plan
+      run: terraform plan -var-file="envs/${{ inputs.environmentName }}.tfvars" -out="envs/${{ inputs.environmentName }}.tfplan"
+      env:
+        ARM_CLIENT_ID: ${{ inputs.ARM_CLIENT_ID }}
+        ARM_CLIENT_SECRET: ${{ inputs.ARM_CLIENT_SECRET }}
+        ARM_SUBSCRIPTION_ID: ${{ inputs.ARM_SUBSCRIPTION_ID }}
+        ARM_TENANT_ID: ${{ inputs.ARM_TENANT_ID }}
 
-  - name: Terraform Apply
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    run: terraform apply -auto-approve -json "envs/${{ inputs.environmentName }}.tfplan"
-    env:
-      ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-      ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-      ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+    - name: Terraform Apply
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      run: terraform apply -auto-approve -json "envs/${{ inputs.environmentName }}.tfplan"
+      env:
+        ARM_CLIENT_ID: ${{ inputs.ARM_CLIENT_ID }}
+        ARM_CLIENT_SECRET: ${{ inputs.ARM_CLIENT_SECRET }}
+        ARM_SUBSCRIPTION_ID: ${{ inputs.ARM_SUBSCRIPTION_ID }}
+        ARM_TENANT_ID: ${{ inputs.ARM_TENANT_ID }}
