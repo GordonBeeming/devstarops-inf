@@ -17,19 +17,12 @@ env:
   SharedStorageContainer: tfstate
 
 jobs:
-  terraform:
+  setup:
     name: 'Terraform'
     runs-on: ubuntu-latest
     environment: test
 
-    defaults:
-      run:
-        shell: bash
-
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-
     - name: Azure Login
       uses: azure/login@v1
       with:
@@ -49,12 +42,44 @@ jobs:
           ACCOUNT_KEY=$(az storage account keys list --resource-group $SharedResourceGroup --account-name $SharedStorage --query '[0].value' -o tsv)
           export ARM_ACCESS_KEY=$ACCOUNT_KEY
 
-    - name: Deploy terraform template
-      uses: ./.github/actions/terraform-deployto
-      with:
-        environmentName: test
-        terraformVersion: ${{ env.TerraformVersion }}
-        ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-        ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-        ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-        ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+  deploy_test:
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: 'test'
+      # url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Deploy terraform template
+        uses: ./.github/actions/terraform-deployto
+        with:
+          environmentName: test
+          terraformVersion: ${{ env.TerraformVersion }}
+          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+
+  deploy_production:
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: 'production'
+      # url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Deploy terraform template
+        uses: ./.github/actions/terraform-deployto
+        with:
+          environmentName: production
+          terraformVersion: ${{ env.TerraformVersion }}
+          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
