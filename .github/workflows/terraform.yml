@@ -54,4 +54,3 @@ jobs:
       with:
         environmentName: test
         terraformVersion: ${{ env.TerraformVersion }}
-      secrets: inherit
