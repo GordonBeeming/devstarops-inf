@@ -10,7 +10,7 @@ permissions:
   contents: read
 
 env:
-  TerraformVersion: 1.2.4
+  TerraformVersion: 1.2.5
   DeployRegion: westeurope
   SharedResourceGroup: devstarops-shared-rg
   SharedStorage: dsosharedstorage
