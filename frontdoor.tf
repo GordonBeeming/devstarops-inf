@@ -8,7 +8,7 @@ resource "azurerm_linux_virtual_machine" "frontdoor" {
   admin_password                  = var.frontdoor_admin_password
   disable_password_authentication = false
   network_interface_ids = [
-    azurerm_network_interface.main.id,
+    azurerm_network_interface.external.id,
     azurerm_network_interface.internal.id,
   ]
 
