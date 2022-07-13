@@ -49,32 +49,9 @@ jobs:
           ACCOUNT_KEY=$(az storage account keys list --resource-group $SharedResourceGroup --account-name $SharedStorage --query '[0].value' -o tsv)
           export ARM_ACCESS_KEY=$ACCOUNT_KEY
 
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v1
+    - name: Terraform
+      uses: ./.github/workflows/terraform-deployto.yml.yml
       with:
-        terraform_version: ${{ env.TerraformVersion }}
-
-    - name: Terraform Init
-      run: terraform init -var-file="envs/test.tfvars" -backend-config="envs/test.tfbackend"
-      env:
-        ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-        ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-        ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-        ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-
-    - name: Terraform Plan
-      run: terraform plan -var-file="envs/test.tfvars" -out="envs/test.tfplan"
-      env:
-        ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-        ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-        ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-        ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-
-    - name: Terraform Apply
-      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-      run: terraform apply -auto-approve -json "envs/test.tfplan"
-      env:
-        ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-        ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-        ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-        ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+        environmentName: test
+        terraformVersion: ${{ env.TerraformVersion }}
+      secrets: inherit
