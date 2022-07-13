@@ -45,14 +45,14 @@ resource "azurerm_network_interface" "internal" {
   }
 }
 
-resource "azurerm_network_security_group" "frontdoor-nsg" {
-  name                = "${var.environment_name}-dso-443-frontdoor"
+resource "azurerm_network_security_group" "frontdoor-tls" {
+  name                = "${var.environment_name}-dso-tls-frontdoor"
   location            = azurerm_resource_group.main.location
   resource_group_name = azurerm_resource_group.main.name
   security_rule {
     access                     = "Allow"
     direction                  = "Inbound"
-    name                       = "443"
+    name                       = "tls"
     priority                   = 100
     protocol                   = "Tcp"
     source_port_range          = "*"
