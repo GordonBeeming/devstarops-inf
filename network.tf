@@ -61,7 +61,7 @@ resource "azurerm_network_security_group" "frontdoor-nsg" {
     access                     = "Allow"
     direction                  = "Inbound"
     name                       = "80-allow"
-    priority                   = 100
+    priority                   = 150
     protocol                   = "Tcp"
     source_port_range          = "*"
     source_address_prefix      = "*"
@@ -83,6 +83,6 @@ resource "azurerm_network_security_group" "frontdoor-nsg" {
 }
 
 resource "azurerm_network_interface_security_group_association" "main" {
-  network_interface_id      = azurerm_network_interface.internal.id
+  network_interface_id      = azurerm_network_interface.external.id
   network_security_group_id = azurerm_network_security_group.frontdoor-nsg.id
 }

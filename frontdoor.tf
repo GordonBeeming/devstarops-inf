@@ -1,21 +1,28 @@
 
+data "template_file" "linux-vm-cloud-init" {
+  template = file("frontdoor.sh")
+}
+
 resource "azurerm_linux_virtual_machine" "frontdoor" {
-  name                            = "${var.environment_name}-dso-vm"
+  name                            = "${var.environment_name}-dso-frontdoor-vm"
   resource_group_name             = azurerm_resource_group.main.name
   location                        = azurerm_resource_group.main.location
   size                            = var.frontdoor_vm_size
   admin_username                  = var.frontdoor_admin_user
   admin_password                  = var.frontdoor_admin_password
   disable_password_authentication = false
+
+  custom_data    = base64encode(data.template_file.linux-vm-cloud-init.rendered)
+
   network_interface_ids = [
     azurerm_network_interface.external.id,
     azurerm_network_interface.internal.id,
   ]
 
   source_image_reference {
-    publisher = "Canonical"
-    offer     = "UbuntuServer"
-    sku       = "20.04-LTS"
+    publisher = "canonical"
+    offer     = "0001-com-ubuntu-server-focal"
+    sku       = "20_04-lts-gen2"
     version   = "latest"
   }
 
