@@ -21,8 +21,8 @@ resource "azurerm_linux_virtual_machine" "frontdoor" {
 
   source_image_reference {
     publisher = "canonical"
-    offer     = "0001-com-ubuntu-server-focal"
-    sku       = "20_04-lts-gen2"
+    offer     = "0001-com-ubuntu-server-groovy"
+    sku       = "20_10-gen2"
     version   = "latest"
   }
 

@@ -1,11 +1,30 @@
 #! /bin/bash
+
+while [ "$(hostname -I)" = "" ]; do
+  echo -e "\e[1A\e[KNo network: $(date)"
+  sleep 1
+done
+
+echo "I have network";
+
+sudo apt-add-repository -y 'deb http://archive.ubuntu.com/ubuntu/ kinetic main restricted'
+sudo apt-add-repository -y 'deb http://archive.ubuntu.com/ubuntu/ kinetic-updates main restricted'
+sudo apt-add-repository -y 'deb http://archive.ubuntu.com/ubuntu/ kinetic universe'
+
 sudo apt update
-sudo apt install -y apache2
 
-sudo ufw allow 'Apache Full'
+echo '* libraries/restart-without-asking boolean true' | sudo debconf-set-selections
 
-sudo systemctl start apache2
-sudo systemctl enable apache2
+sudo apt install -y podman
 
-echo "<h1>Azure Virtual Machine deployed with Terraform</h1>" | sudo tee /var/www/html/index.html
 
+# Remove this after container added
+sudo apt install -y nginx
+sudo ufw allow 'Nginx Full'
+sudo systemctl start nginx
+sudo systemctl enable nginx
+
+# Debug Things
+# systemctl status nginx
+# cat /etc/apt/sources.list
+# cat /var/log/cloud-init-output.log
