@@ -11,6 +11,11 @@ variable "environment_name" {
   type = string
 }
 
+variable "sshAccess" {
+  type = string
+  default = "Deny"
+}
+
 variable "frontdoor_vm_size" {
   type = string
 }

@@ -60,7 +60,7 @@ resource "azurerm_network_security_group" "frontdoor-nsg" {
   security_rule {
     access                     = "Allow"
     direction                  = "Inbound"
-    name                       = "80-allow"
+    name                       = "http"
     priority                   = 150
     protocol                   = "Tcp"
     source_port_range          = "*"
@@ -72,7 +72,7 @@ resource "azurerm_network_security_group" "frontdoor-nsg" {
   security_rule {
     access                     = "Allow"
     direction                  = "Inbound"
-    name                       = "443-allow"
+    name                       = "https"
     priority                   = 100
     protocol                   = "Tcp"
     source_port_range          = "*"
@@ -81,17 +81,17 @@ resource "azurerm_network_security_group" "frontdoor-nsg" {
     destination_address_prefix = azurerm_network_interface.external.private_ip_address
   }
   
-  # security_rule {
-  #   access                     = "Allow"
-  #   direction                  = "Inbound"
-  #   name                       = "22-allow"
-  #   priority                   = 160
-  #   protocol                   = "Tcp"
-  #   source_port_range          = "*"
-  #   source_address_prefix      = "*"
-  #   destination_port_range     = "22"
-  #   destination_address_prefix = azurerm_network_interface.external.private_ip_address
-  # }
+  security_rule {
+    access                     = var.sshAccess
+    direction                  = "Inbound"
+    name                       = "ssh"
+    priority                   = 160
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    source_address_prefix      = "*"
+    destination_port_range     = "22"
+    destination_address_prefix = azurerm_network_interface.external.private_ip_address
+  }
 }
 
 resource "azurerm_network_interface_security_group_association" "main" {
