@@ -17,7 +17,9 @@ echo '* libraries/restart-without-asking boolean true' | sudo debconf-set-select
 
 sudo apt install -y podman
 
-sudo podman run -p 80:80 -p 433:433 --name edge --restart unless-stopped --replace --tls-verify --pull always -d ghcr.io/devstarops/devstarops-edge:main
+sudo mkdir /var/edge/
+
+sudo podman run -p 80:80 -p 433:433 --name edge --restart unless-stopped --replace --tls-verify --pull always -d -v /var/edge/:/var/edge/ ghcr.io/devstarops/devstarops-edge:main
 
 # Debug Things
 # systemctl status nginx

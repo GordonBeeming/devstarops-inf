@@ -19,6 +19,11 @@ resource "azurerm_linux_virtual_machine" "frontdoor" {
     azurerm_network_interface.internal.id,
   ]
 
+  identity {
+    type = "UserAssigned"
+    identity_ids = [ azurerm_user_assigned_identity.frontdoor.id ]
+  }
+
   source_image_reference {
     publisher = "canonical"
     offer     = "0001-com-ubuntu-server-groovy"
