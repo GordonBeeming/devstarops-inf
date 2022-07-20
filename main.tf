@@ -21,6 +21,8 @@ provider "azurerm" {
 }
 
 provider "cloudflare" {
+  api_client_logging = false
+  api_user_service_key = var.cloudflare_service_key
   api_token = var.cloudflare_api_token
 }
 

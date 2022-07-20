@@ -18,3 +18,13 @@ resource "cloudflare_origin_ca_certificate" "domain" {
   request_type       = "origin-rsa"
   requested_validity = 5475
 }
+
+resource "cloudflare_record" "main" {
+  zone_id = var.cloudflare_zone_id
+  name    = var.edge_dns_record
+  value   = azurerm_public_ip.pip.ip_address
+  type    = "A"
+  ttl     = 1
+  proxied = true
+  allow_overwrite = false
+}

@@ -33,6 +33,19 @@ variable "cloudflare_api_token" {
   sensitive = true
 }
 
+variable "cloudflare_service_key" {
+  type = string
+  sensitive = true
+}
+
+variable "cloudflare_zone_id" {
+  type = string
+}
+
+variable "edge_dns_record" {
+  type = string
+}
+
 variable "edge_hostname" {
   type = string
 }

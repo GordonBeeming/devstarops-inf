@@ -9,5 +9,7 @@ frontdoor_admin_user = "adminuser"
 # frontdoor_admin_password = local env variable
 
 # cloudflare_api_token = local env variable
-
+# cloudflare_service_key = local env variable
+# cloudflare_zone_id = local env variable
 edge_hostname = "local.devstarops.com"
+edge_dns_record = "local"
