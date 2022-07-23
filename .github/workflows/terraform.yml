@@ -18,35 +18,35 @@ env:
   SharedStorageContainer: tfstate
 
 jobs:
-  setup:
-    name: "Setup backend"
-    runs-on: ubuntu-latest
-    environment: test
+  # setup:
+  #   name: "Setup backend"
+  #   runs-on: ubuntu-latest
+  #   environment: test
 
-    steps:
-      - name: Azure Login
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+  #   steps:
+  #     - name: Azure Login
+  #       uses: azure/login@v1
+  #       with:
+  #         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Azure CLI script
-        uses: azure/CLI@v1
-        with:
-          azcliversion: 2.36.0
-          inlineScript: |
-            az group create --resource-group $SharedResourceGroup --location $DeployRegion
+  #     - name: Azure CLI script
+  #       uses: azure/CLI@v1
+  #       with:
+  #         azcliversion: 2.36.0
+  #         inlineScript: |
+  #           az group create --resource-group $SharedResourceGroup --location $DeployRegion
 
-            az storage account create --name $SharedStorage --resource-group $SharedResourceGroup --location $DeployRegion --access-tier Hot --allow-blob-public-access false --https-only true --kind StorageV2 --sku Standard_ZRS
+  #           az storage account create --name $SharedStorage --resource-group $SharedResourceGroup --location $DeployRegion --access-tier Hot --allow-blob-public-access false --https-only true --kind StorageV2 --sku Standard_ZRS
 
-            az storage container create -n $SharedStorageContainer --account-name $SharedStorage --resource-group $SharedResourceGroup
+  #           az storage container create -n $SharedStorageContainer --account-name $SharedStorage --resource-group $SharedResourceGroup
 
-            ACCOUNT_KEY=$(az storage account keys list --resource-group $SharedResourceGroup --account-name $SharedStorage --query '[0].value' -o tsv)
-            export ARM_ACCESS_KEY=$ACCOUNT_KEY
+  #           ACCOUNT_KEY=$(az storage account keys list --resource-group $SharedResourceGroup --account-name $SharedStorage --query '[0].value' -o tsv)
+  #           export ARM_ACCESS_KEY=$ACCOUNT_KEY
 
   deploy_test:
     name: "Deploy to Test"
     runs-on: ubuntu-latest
-    needs: setup
+    # needs: setup
     concurrency:
       group: test
       cancel-in-progress: false
