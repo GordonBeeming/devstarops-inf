@@ -5,7 +5,7 @@ environment_name = "production"
 sshAccess = "Deny"
 
 frontdoor_vm_size = "Standard_DS2_v2"
-frontdoor_admin_user = "adminuser"
+# frontdoor_admin_user = "adminuser"
 # frontdoor_admin_password = local env variable
 
 # cloudflare_api_token = local env variable

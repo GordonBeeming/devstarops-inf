@@ -67,6 +67,7 @@ jobs:
           ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+          frontdoor_admin_user: ${{ secrets.FRONTDOOR_ADMIN_USER }}
           frontdoor_admin_password: ${{ secrets.FRONTDOOR_ADMIN_PASSWORD }}
           cloudflare_api_token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           cloudflare_service_key: ${{ secrets.CLOUDFLARE_SERVICE_KEY }}
@@ -96,6 +97,7 @@ jobs:
           ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+          frontdoor_admin_user: ${{ secrets.FRONTDOOR_ADMIN_USER }}
           frontdoor_admin_password: ${{ secrets.FRONTDOOR_ADMIN_PASSWORD }}
           cloudflare_api_token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           cloudflare_service_key: ${{ secrets.CLOUDFLARE_SERVICE_KEY }}
