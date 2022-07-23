@@ -21,3 +21,9 @@ resource "azurerm_storage_account_network_rules" "internal" {
   virtual_network_subnet_ids = [azurerm_subnet.internal.id]
   bypass                     = ["None"]
 }
+
+resource "azurerm_role_assignment" "frontdoor_appdata_access" {
+  scope                = azurerm_storage_account.app_data.id
+  role_definition_name = "Reader and Data Access"
+  principal_id         = azurerm_user_assigned_identity.frontdoor.principal_id
+}
