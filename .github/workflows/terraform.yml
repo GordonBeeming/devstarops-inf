@@ -55,7 +55,7 @@ jobs:
     needs: setup
     environment:
       name: "test"
-      # url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+      url: "https://test.devstarops.com"
 
     steps:
       - name: Checkout
@@ -71,6 +71,9 @@ jobs:
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
           frontdoor_admin_password: ${{ secrets.FRONTDOOR_ADMIN_PASSWORD }}
+          cloudflare_api_token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          cloudflare_service_key: ${{ secrets.CLOUDFLARE_SERVICE_KEY }}
+          cloudflare_zone_id: ${{ secrets.CLOUDFLARE_ZONE_ID }}
 
   deploy_production:
     name: "Deploy to Production"
@@ -81,7 +84,7 @@ jobs:
       cancel-in-progress: true
     environment:
       name: "production"
-      # url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+      url: "https://devstarops.com"
 
     steps:
       - name: Checkout
@@ -97,3 +100,6 @@ jobs:
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
           frontdoor_admin_password: ${{ secrets.FRONTDOOR_ADMIN_PASSWORD }}
+          cloudflare_api_token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          cloudflare_service_key: ${{ secrets.CLOUDFLARE_SERVICE_KEY }}
+          cloudflare_zone_id: ${{ secrets.CLOUDFLARE_ZONE_ID }}

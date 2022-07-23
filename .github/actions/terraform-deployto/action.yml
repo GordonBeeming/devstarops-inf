@@ -23,6 +23,15 @@ inputs:
   frontdoor_admin_password:
     required: true
     type: string
+  cloudflare_api_token:
+    required: true
+    type: string
+  cloudflare_service_key:
+    required: true
+    type: string
+  cloudflare_zone_id:
+    required: true
+    type: string
 
 runs:
   using: "composite"
@@ -40,7 +49,6 @@ runs:
         ARM_CLIENT_SECRET: ${{ inputs.ARM_CLIENT_SECRET }}
         ARM_SUBSCRIPTION_ID: ${{ inputs.ARM_SUBSCRIPTION_ID }}
         ARM_TENANT_ID: ${{ inputs.ARM_TENANT_ID }}
-        frontdoor_admin_password: ${{ inputs.frontdoor_admin_password }}
 
     - name: Terraform Plan
       shell: bash
@@ -51,6 +59,9 @@ runs:
         ARM_SUBSCRIPTION_ID: ${{ inputs.ARM_SUBSCRIPTION_ID }}
         ARM_TENANT_ID: ${{ inputs.ARM_TENANT_ID }}
         frontdoor_admin_password: ${{ inputs.frontdoor_admin_password }}
+        cloudflare_api_token: ${{ inputs.cloudflare_api_token }}
+        cloudflare_service_key: ${{ inputs.cloudflare_service_key }}
+        cloudflare_zone_id: ${{ inputs.cloudflare_zone_id }}
 
     - name: Terraform Apply
       shell: bash
