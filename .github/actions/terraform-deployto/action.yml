@@ -20,6 +20,9 @@ inputs:
   ARM_TENANT_ID:
     required: true
     type: string
+  frontdoor_admin_password:
+    required: true
+    type: string
 
 runs:
   using: "composite"
@@ -37,6 +40,7 @@ runs:
         ARM_CLIENT_SECRET: ${{ inputs.ARM_CLIENT_SECRET }}
         ARM_SUBSCRIPTION_ID: ${{ inputs.ARM_SUBSCRIPTION_ID }}
         ARM_TENANT_ID: ${{ inputs.ARM_TENANT_ID }}
+        frontdoor_admin_password: ${{ inputs.frontdoor_admin_password }}
 
     - name: Terraform Plan
       shell: bash
@@ -46,6 +50,7 @@ runs:
         ARM_CLIENT_SECRET: ${{ inputs.ARM_CLIENT_SECRET }}
         ARM_SUBSCRIPTION_ID: ${{ inputs.ARM_SUBSCRIPTION_ID }}
         ARM_TENANT_ID: ${{ inputs.ARM_TENANT_ID }}
+        frontdoor_admin_password: ${{ inputs.frontdoor_admin_password }}
 
     - name: Terraform Apply
       shell: bash

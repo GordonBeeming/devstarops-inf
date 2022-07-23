@@ -1,3 +1,3 @@
 cd ..
-terraform apply -auto-approve -json "envs/local.tfplan"
+terraform apply -auto-approve %* "envs/local.tfplan"
 cd envs
