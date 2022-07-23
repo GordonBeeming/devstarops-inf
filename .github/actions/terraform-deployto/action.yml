@@ -20,6 +20,9 @@ inputs:
   ARM_TENANT_ID:
     required: true
     type: string
+  frontdoor_admin_user:
+    required: true
+    type: string
   frontdoor_admin_password:
     required: true
     type: string
@@ -58,6 +61,7 @@ runs:
         ARM_CLIENT_SECRET: ${{ inputs.ARM_CLIENT_SECRET }}
         ARM_SUBSCRIPTION_ID: ${{ inputs.ARM_SUBSCRIPTION_ID }}
         ARM_TENANT_ID: ${{ inputs.ARM_TENANT_ID }}
+        TF_VAR_frontdoor_admin_user: ${{ inputs.frontdoor_admin_user }}
         TF_VAR_frontdoor_admin_password: ${{ inputs.frontdoor_admin_password }}
         TF_VAR_cloudflare_api_token: ${{ inputs.cloudflare_api_token }}
         TF_VAR_cloudflare_service_key: ${{ inputs.cloudflare_service_key }}
