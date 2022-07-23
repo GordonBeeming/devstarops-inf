@@ -40,7 +40,7 @@ storage_access_key=${storage_access_key}
 
 az storage blob directory download --container $storage_container --account-name $storage_account_name --source-path "*" --destination-path "/var/edge/" --account-key ${storage_access_key} --recursive --verbose
 
-az storage account keys renew -g $resource_group_name -n $storage_account_name --key primary
+# az storage account keys renew -g $resource_group_name -n $storage_account_name --key primary
 
 sudo podman run -p 443:443 --name edge --restart unless-stopped --replace --tls-verify --pull always -d -v /var/edge/:/var/edge/ ghcr.io/devstarops/devstarops-edge:main
 
