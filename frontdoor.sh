@@ -33,12 +33,16 @@ az extension add --name storage-preview
 
 sudo mkdir /var/edge/
 
-# if [[ hostname == local-* ]];
-# then
-#   az storage blob directory download -c appdata --account-name dsolocalstorage -s "" -d "/var/edge/" --recursive --verbose
-# fi
+resource_group_name=${resource_group_name}
+storage_account_name=${storage_account_name}
+storage_container=${storage_container}
+storage_access_key=${storage_access_key}
 
-sudo podman run -p 80:80 -p 433:433 --name edge --restart unless-stopped --replace --tls-verify --pull always -d -v /var/edge/:/var/edge/ ghcr.io/devstarops/devstarops-edge:main
+az storage blob directory download --container $storage_container --account-name $storage_account_name --source-path "*" --destination-path "/var/edge/" --account-key ${storage_access_key} --recursive --verbose
+
+az storage account keys renew -g $resource_group_name -n $storage_account_name --key primary
+
+sudo podman run -p 443:443 --name edge --restart unless-stopped --replace --tls-verify --pull always -d -v /var/edge/:/var/edge/ ghcr.io/devstarops/devstarops-edge:main
 
 # Debug Things
 # systemctl status nginx

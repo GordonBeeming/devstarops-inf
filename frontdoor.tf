@@ -1,6 +1,12 @@
 
 data "template_file" "linux-vm-cloud-init" {
   template = file("frontdoor.sh")
+  vars = {
+    resource_group_name = azurerm_resource_group.main.name
+    storage_account_name = azurerm_storage_account.app_data.name
+    storage_container = "appdata"
+    storage_access_key = azurerm_storage_account.app_data.primary_access_key
+  }
 }
 
 resource "azurerm_linux_virtual_machine" "frontdoor" {

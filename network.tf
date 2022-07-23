@@ -61,7 +61,7 @@ resource "azurerm_network_security_group" "frontdoor-nsg" {
   # enable_ip_forwarding = true
 
   security_rule {
-    access                     = "Allow"
+    access                     = "Deny"
     direction                  = "Inbound"
     name                       = "http"
     priority                   = 150
