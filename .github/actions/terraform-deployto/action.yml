@@ -58,10 +58,10 @@ runs:
         ARM_CLIENT_SECRET: ${{ inputs.ARM_CLIENT_SECRET }}
         ARM_SUBSCRIPTION_ID: ${{ inputs.ARM_SUBSCRIPTION_ID }}
         ARM_TENANT_ID: ${{ inputs.ARM_TENANT_ID }}
-        frontdoor_admin_password: ${{ inputs.frontdoor_admin_password }}
-        cloudflare_api_token: ${{ inputs.cloudflare_api_token }}
-        cloudflare_service_key: ${{ inputs.cloudflare_service_key }}
-        cloudflare_zone_id: ${{ inputs.cloudflare_zone_id }}
+        TF_VAR_frontdoor_admin_password: ${{ inputs.frontdoor_admin_password }}
+        TF_VAR_cloudflare_api_token: ${{ inputs.cloudflare_api_token }}
+        TF_VAR_cloudflare_service_key: ${{ inputs.cloudflare_service_key }}
+        TF_VAR_cloudflare_zone_id: ${{ inputs.cloudflare_zone_id }}
 
     - name: Terraform Apply
       shell: bash
