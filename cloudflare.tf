@@ -38,19 +38,3 @@ resource "local_sensitive_file" "domain_key" {
     content  = tls_private_key.domain.private_key_pem
     filename = "resources/domain.key"
 }
-
-resource "azurerm_storage_blob" "domain_pem" {
-  name                   = "domain.pem"
-  storage_account_name   = azurerm_storage_account.app_data.name
-  storage_container_name = azurerm_storage_container.app_data.name
-  type                   = "Block"
-  source                 = "resources/domain.pem"
-}
-
-resource "azurerm_storage_blob" "domain_key" {
-  name                   = "domain.key"
-  storage_account_name   = azurerm_storage_account.app_data.name
-  storage_container_name = azurerm_storage_container.app_data.name
-  type                   = "Block"
-  source                 = "resources/domain.key"
-}

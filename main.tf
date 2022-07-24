@@ -26,11 +26,8 @@ provider "cloudflare" {
   api_token = var.cloudflare_api_token
 }
 
-
-# Create a resource group
-resource "azurerm_resource_group" "main" {
-  name     = var.resource_group_name
-  location = var.deploy_region
-}
-
 data "azurerm_client_config" "current" {}
+
+data "azurerm_resource_group" "main" {
+  name = var.resource_group_name
+}

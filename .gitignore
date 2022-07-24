@@ -32,3 +32,5 @@ envs/*.tfplan
 .terraform.lock.hcl
 
 resources/*
+
+envs/set-local-envs.ps1

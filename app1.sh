@@ -8,9 +8,6 @@ echo "I have network";
 
 resource_group_name=${resource_group_name}
 storage_account_name=${storage_account_name}
-app1_ipaddress=${app1_ipaddress}
-
-sudo -- sh -c -e "echo '$app1_ipaddress app1' >> /etc/hosts"
 
 sudo apt-add-repository -y 'deb http://archive.ubuntu.com/ubuntu/ kinetic main restricted'
 sudo apt-add-repository -y 'deb http://archive.ubuntu.com/ubuntu/ kinetic-updates main restricted'
@@ -36,14 +33,14 @@ sudo apt-get update
 sudo apt-get install -y azure-cli
 az extension add --name storage-preview
 
-sudo mkdir /var/edge/
-sudo touch /var/edge/error.log
-sudo touch /var/edge/access.log
+sudo mkdir /var/profile/
+sudo touch /var/profile/error.log
+sudo touch /var/profile/access.log
 
 az login --identity
-az storage blob directory download --container "frontdoor" --account-name $storage_account_name --source-path "*" --destination-path "/var/edge/" --recursive
+az storage blob directory download --container "profile" --account-name $storage_account_name --source-path "*" --destination-path "/var/profile/" --recursive
 
-sudo podman run -p 443:443 --name edge --restart unless-stopped --replace --tls-verify --pull always -d -v /var/edge/error.log:/var/log/nginx/error.log -v /var/edge/access.log:/var/log/nginx/access.log -v /var/edge/:/var/edge/ ghcr.io/devstarops/devstarops-edge:main
+sudo podman run -p 80:80 --name profile --restart unless-stopped --replace --tls-verify --pull always -d -v /var/profile/error.log:/var/log/nginx/error.log -v /var/profile/access.log:/var/log/nginx/access.log -v /var/profile/:/var/profile/ ghcr.io/devstarops/devstarops-profile:main
 
 # Debug Things
 # systemctl status nginx
