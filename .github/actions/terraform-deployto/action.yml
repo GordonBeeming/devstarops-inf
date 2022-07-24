@@ -26,6 +26,12 @@ inputs:
   frontdoor_admin_password:
     required: true
     type: string
+  app1_admin_user:
+    required: true
+    type: string
+  app1_admin_password:
+    required: true
+    type: string
   cloudflare_api_token:
     required: true
     type: string
@@ -63,6 +69,8 @@ runs:
         ARM_TENANT_ID: ${{ inputs.ARM_TENANT_ID }}
         TF_VAR_frontdoor_admin_user: ${{ inputs.frontdoor_admin_user }}
         TF_VAR_frontdoor_admin_password: ${{ inputs.frontdoor_admin_password }}
+        TF_VAR_app1_admin_user: ${{ inputs.app1_admin_user }}
+        TF_VAR_app1_admin_password: ${{ inputs.app1_admin_password }}
         TF_VAR_cloudflare_api_token: ${{ inputs.cloudflare_api_token }}
         TF_VAR_cloudflare_service_key: ${{ inputs.cloudflare_service_key }}
         TF_VAR_cloudflare_zone_id: ${{ inputs.cloudflare_zone_id }}

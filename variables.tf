@@ -28,6 +28,18 @@ variable "frontdoor_admin_password" {
   sensitive = true
 }
 
+variable "app1_vm_size" {
+  type = string
+}
+variable "app1_admin_user" {
+  type = string
+  sensitive = true
+}
+variable "app1_admin_password" {
+  type = string
+  sensitive = true
+}
+
 variable "cloudflare_api_token" {
   type = string
   sensitive = true
