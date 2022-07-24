@@ -33,4 +33,4 @@ envs/*.tfplan
 
 resources/*
 
-envs/set-local-envs.ps1
+scripts/set-local-envs.ps1
