@@ -33,14 +33,14 @@ sudo apt-get update
 sudo apt-get install -y azure-cli
 az extension add --name storage-preview
 
+az login --identity
+
+# profile
 sudo mkdir /var/profile/
 sudo touch /var/profile/error.log
 sudo touch /var/profile/access.log
-
-az login --identity
 az storage blob directory download --container "profile" --account-name $storage_account_name --source-path "*" --destination-path "/var/profile/" --recursive
-
-sudo podman run -p 80:80 --name profile --restart unless-stopped --replace --tls-verify --pull always -d -v /var/profile/error.log:/var/log/nginx/error.log -v /var/profile/access.log:/var/log/nginx/access.log -v /var/profile/:/var/profile/ ghcr.io/devstarops/devstarops-profile:main
+podman run -p 8100:80 --name profile --restart unless-stopped --replace --tls-verify --pull always -d -v /var/profile/error.log:/var/log/nginx/error.log -v /var/profile/access.log:/var/log/nginx/access.log -v /var/profile/:/var/profile/ ghcr.io/devstarops/devstarops-profile:main
 
 # Debug Things
 # systemctl status nginx
