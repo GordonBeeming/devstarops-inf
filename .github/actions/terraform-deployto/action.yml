@@ -61,7 +61,7 @@ runs:
 
     - name: Terraform Plan
       shell: bash
-      run: terraform plan -var-file="envs/${{ inputs.environmentName }}.tfvars" -out="envs/${{ inputs.environmentName }}.tfplan"
+      run: terraform plan -input=false -var-file="envs/${{ inputs.environmentName }}.tfvars" -out="envs/${{ inputs.environmentName }}.tfplan"
       env:
         ARM_CLIENT_ID: ${{ inputs.ARM_CLIENT_ID }}
         ARM_CLIENT_SECRET: ${{ inputs.ARM_CLIENT_SECRET }}
