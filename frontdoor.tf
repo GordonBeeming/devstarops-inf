@@ -29,7 +29,9 @@ data "template_file" "frontdoor-cloud-init" {
   vars = {
     resource_group_name = data.azurerm_resource_group.main.name
     storage_account_name = azurerm_storage_account.app_data.name
-    app1_ipaddress = azurerm_network_interface.app1-internal.ip_configuration[0].private_ip_address    
+    app1_ipaddress = azurerm_network_interface.app1-internal.ip_configuration[0].private_ip_address
+    github_username = "devstarops"
+    github_token = var.github_token
   }
 }
 
