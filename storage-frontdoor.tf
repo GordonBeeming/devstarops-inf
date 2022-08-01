@@ -8,6 +8,10 @@ resource "azurerm_storage_container" "frontdoor" {
   name                  = "frontdoor"
   storage_account_name  = azurerm_storage_account.app_data.name
   container_access_type = "private"
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "azurerm_storage_blob" "domain_pem" {

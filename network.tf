@@ -26,6 +26,10 @@ resource "azurerm_public_ip" "pip" {
   resource_group_name = data.azurerm_resource_group.main.name
   location            = data.azurerm_resource_group.main.location
   allocation_method   = "Static"
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "azurerm_network_security_group" "edge-nsg" {
