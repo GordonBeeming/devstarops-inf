@@ -49,6 +49,7 @@ jobs:
           cloudflare_api_token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           cloudflare_service_key: ${{ secrets.CLOUDFLARE_SERVICE_KEY }}
           cloudflare_zone_id: ${{ secrets.CLOUDFLARE_ZONE_ID }}
+          github_token: ${{ secrets.GH_TOKEN }}
 
   deploy_production:
     name: "Deploy to Production"
@@ -81,3 +82,4 @@ jobs:
           cloudflare_api_token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           cloudflare_service_key: ${{ secrets.CLOUDFLARE_SERVICE_KEY }}
           cloudflare_zone_id: ${{ secrets.CLOUDFLARE_ZONE_ID }}
+          github_token: ${{ secrets.GH_TOKEN }}

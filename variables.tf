@@ -61,3 +61,10 @@ variable "edge_dns_record" {
 variable "edge_hostname" {
   type = string
 }
+
+
+
+variable "github_token" {
+  type = string
+  sensitive = true
+}

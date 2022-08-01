@@ -8,6 +8,8 @@ echo "I have network";
 
 resource_group_name=${resource_group_name}
 storage_account_name=${storage_account_name}
+github_username=${github_username}
+github_token=${github_token}
 
 sudo apt-add-repository -y 'deb http://archive.ubuntu.com/ubuntu/ kinetic main restricted'
 sudo apt-add-repository -y 'deb http://archive.ubuntu.com/ubuntu/ kinetic-updates main restricted'
@@ -34,13 +36,21 @@ sudo apt-get install -y azure-cli
 az extension add --name storage-preview
 
 az login --identity
+podman login ghcr.io --tls-verify --username $github_username --password $github_token
 
 # profile
 sudo mkdir /var/profile/
 sudo touch /var/profile/error.log
 sudo touch /var/profile/access.log
-az storage blob directory download --container "profile" --account-name $storage_account_name --source-path "*" --destination-path "/var/profile/" --recursive
-podman run -p 8100:80 --name profile --restart unless-stopped --replace --tls-verify --pull always -d -v /var/profile/error.log:/var/log/nginx/error.log -v /var/profile/access.log:/var/log/nginx/access.log -v /var/profile/:/var/profile/ ghcr.io/devstarops/devstarops-profile:main
+sudo az storage blob directory download --container "profile" --account-name $storage_account_name --source-path "*" --destination-path "/var/profile/" --recursive
+podman run -p 8100:80 --name profile --restart unless-stopped --replace --tls-verify --pull always -d -v /var/profile/nginx.conf:/etc/nginx/nginx.conf -v /var/profile/error.log:/var/log/nginx/error.log -v /var/profile/access.log:/var/log/nginx/access.log -v /var/profile/:/var/profile/ ghcr.io/devstarops/devstarops-profile:main
+
+# blog
+sudo mkdir /var/blog/
+sudo touch /var/blog/error.log
+sudo touch /var/blog/access.log
+sudo az storage blob directory download --container "blog" --account-name $storage_account_name --source-path "*" --destination-path "/var/blog/" --recursive
+podman run -p 8101:5000 --name blog --restart unless-stopped --replace --tls-verify --pull always -d -v /var/blog/error.log:/var/log/nginx/error.log -v /var/blog/access.log:/var/log/nginx/access.log -v /var/blog/:/var/blog/ ghcr.io/devstarops/blog:main
 
 # Debug Things
 # systemctl status nginx
