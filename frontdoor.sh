@@ -45,9 +45,17 @@ podman login ghcr.io --tls-verify --username $github_username --password $github
 sudo mkdir /var/edge/
 sudo touch /var/edge/error.log
 sudo touch /var/edge/access.log
-sudo az storage blob directory download --container "frontdoor" --account-name $storage_account_name --source-path "*" --destination-path "/var/edge/" --recursive
-# sudo az storage blob directory download --container "frontdoor" --account-name "dsolocalstorage" --source-path "*" --destination-path "/var/edge/" --recursive
+sudo printf "
+#!/bin/bash
+
+az login --identity
+podman login ghcr.io --tls-verify --username '$github_username' --password '$github_token'
+sudo az storage blob directory download --container 'frontdoor' --account-name '$storage_account_name' --source-path '*' --destination-path '/var/edge/' --recursive
 sudo podman run -p 443:443 --name edge --restart unless-stopped --replace --tls-verify --pull always -d -v /var/edge/nginx.conf:/etc/nginx/nginx.conf -v /var/edge/error.log:/var/log/nginx/error.log -v /var/edge/access.log:/var/log/nginx/access.log -v /var/edge/:/var/edge/ ghcr.io/devstarops/devstarops-edge:main
+" >> /var/edge/update.sh
+cd /var/edge/
+sudo chmod u+x update.sh
+sudo ./update.sh
 
 # Debug Things
 # systemctl status nginx
