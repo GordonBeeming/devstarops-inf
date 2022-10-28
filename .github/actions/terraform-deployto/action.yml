@@ -32,10 +32,10 @@ inputs:
   app1_admin_password:
     required: true
     type: string
-  cloudflare_api_token:
+  cloudflare_email:
     required: true
     type: string
-  cloudflare_origin_ca_key:
+  cloudflare_api_key:
     required: true
     type: string
   cloudflare_zone_id:
@@ -74,8 +74,8 @@ runs:
         TF_VAR_frontdoor_admin_password: ${{ inputs.frontdoor_admin_password }}
         TF_VAR_app1_admin_user: ${{ inputs.app1_admin_user }}
         TF_VAR_app1_admin_password: ${{ inputs.app1_admin_password }}
-        TF_VAR_cloudflare_api_token: ${{ inputs.cloudflare_api_token }}
-        TF_VAR_cloudflare_origin_ca_key: ${{ inputs.cloudflare_origin_ca_key }}
+        TF_VAR_cloudflare_email: ${{ inputs.cloudflare_email }}
+        TF_VAR_cloudflare_api_key: ${{ inputs.cloudflare_api_key }}
         TF_VAR_cloudflare_zone_id: ${{ inputs.cloudflare_zone_id }}
         TF_VAR_github_token: ${{ inputs.github_token }}
 

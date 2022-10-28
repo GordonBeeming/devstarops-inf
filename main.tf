@@ -2,11 +2,11 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "=3.0.0"
+      version = "= 3.0.0"
     }
     cloudflare = {
       source  = "cloudflare/cloudflare"
-      version = "= 3.19.0"
+      version = "= 3.23.0"
     }
   }
 
@@ -22,8 +22,8 @@ provider "azurerm" {
 
 provider "cloudflare" {
   api_client_logging = false
-  api_user_service_key = var.cloudflare_origin_ca_key
-  api_token = var.cloudflare_api_token
+  email = var.cloudflare_email
+  api_key = var.cloudflare_api_key
 }
 
 data "azurerm_client_config" "current" {}

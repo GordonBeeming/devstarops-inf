@@ -46,8 +46,8 @@ jobs:
           frontdoor_admin_password: ${{ secrets.FRONTDOOR_ADMIN_PASSWORD }}
           app1_admin_user: ${{ secrets.APP1_ADMIN_USER }}
           app1_admin_password: ${{ secrets.APP1_ADMIN_PASSWORD }}
-          cloudflare_api_token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          cloudflare_origin_ca_key: ${{ secrets.CLOUDFLARE_SERVICE_KEY }}
+          cloudflare_email: ${{ secrets.CLOUDFLARE_EMAIL }}
+          cloudflare_api_key: ${{ secrets.CLOUDFLARE_API_KEY }}
           cloudflare_zone_id: ${{ secrets.CLOUDFLARE_ZONE_ID }}
           github_token: ${{ secrets.GH_TOKEN }}
 
@@ -79,7 +79,7 @@ jobs:
           frontdoor_admin_password: ${{ secrets.FRONTDOOR_ADMIN_PASSWORD }}
           app1_admin_user: ${{ secrets.APP1_ADMIN_USER }}
           app1_admin_password: ${{ secrets.APP1_ADMIN_PASSWORD }}
-          cloudflare_api_token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          cloudflare_origin_ca_key: ${{ secrets.CLOUDFLARE_SERVICE_KEY }}
+          cloudflare_email: ${{ secrets.CLOUDFLARE_EMAIL }}
+          cloudflare_api_key: ${{ secrets.CLOUDFLARE_API_KEY }}
           cloudflare_zone_id: ${{ secrets.CLOUDFLARE_ZONE_ID }}
           github_token: ${{ secrets.GH_TOKEN }}
