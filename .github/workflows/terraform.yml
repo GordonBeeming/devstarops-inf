@@ -12,7 +12,7 @@ permissions:
   contents: read
 
 env:
-  TerraformVersion: 1.2.4
+  TerraformVersion: 1.3.2
   DeployRegion: westeurope
   SharedResourceGroup: devstarops-shared-rg
   SharedStorage: dsosharedstorage
@@ -47,7 +47,7 @@ jobs:
           app1_admin_user: ${{ secrets.APP1_ADMIN_USER }}
           app1_admin_password: ${{ secrets.APP1_ADMIN_PASSWORD }}
           cloudflare_api_token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          cloudflare_service_key: ${{ secrets.CLOUDFLARE_SERVICE_KEY }}
+          cloudflare_origin_ca_key: ${{ secrets.CLOUDFLARE_SERVICE_KEY }}
           cloudflare_zone_id: ${{ secrets.CLOUDFLARE_ZONE_ID }}
           github_token: ${{ secrets.GH_TOKEN }}
 
@@ -80,6 +80,6 @@ jobs:
           app1_admin_user: ${{ secrets.APP1_ADMIN_USER }}
           app1_admin_password: ${{ secrets.APP1_ADMIN_PASSWORD }}
           cloudflare_api_token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          cloudflare_service_key: ${{ secrets.CLOUDFLARE_SERVICE_KEY }}
+          cloudflare_origin_ca_key: ${{ secrets.CLOUDFLARE_SERVICE_KEY }}
           cloudflare_zone_id: ${{ secrets.CLOUDFLARE_ZONE_ID }}
           github_token: ${{ secrets.GH_TOKEN }}

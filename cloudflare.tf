@@ -8,7 +8,7 @@ resource "tls_cert_request" "domain" {
 
   subject {
     common_name  = var.edge_hostname
-    organization = "Gordon Beeming"
+    organization = "Gordon Beeming [Dev⭐Ops]"
   }
 }
 

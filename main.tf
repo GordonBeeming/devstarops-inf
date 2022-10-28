@@ -10,7 +10,7 @@ terraform {
     }
   }
 
-  required_version = "= 1.2.4"
+  required_version = "= 1.3.2"
 
   backend "azurerm" {}
 }
@@ -22,7 +22,7 @@ provider "azurerm" {
 
 provider "cloudflare" {
   api_client_logging = false
-  api_user_service_key = var.cloudflare_service_key
+  api_user_service_key = var.cloudflare_origin_ca_key
   api_token = var.cloudflare_api_token
 }
 

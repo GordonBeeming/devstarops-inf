@@ -35,7 +35,7 @@ inputs:
   cloudflare_api_token:
     required: true
     type: string
-  cloudflare_service_key:
+  cloudflare_origin_ca_key:
     required: true
     type: string
   cloudflare_zone_id:
@@ -75,7 +75,7 @@ runs:
         TF_VAR_app1_admin_user: ${{ inputs.app1_admin_user }}
         TF_VAR_app1_admin_password: ${{ inputs.app1_admin_password }}
         TF_VAR_cloudflare_api_token: ${{ inputs.cloudflare_api_token }}
-        TF_VAR_cloudflare_service_key: ${{ inputs.cloudflare_service_key }}
+        TF_VAR_cloudflare_origin_ca_key: ${{ inputs.cloudflare_origin_ca_key }}
         TF_VAR_cloudflare_zone_id: ${{ inputs.cloudflare_zone_id }}
         TF_VAR_github_token: ${{ inputs.github_token }}
 
