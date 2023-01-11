@@ -45,7 +45,7 @@ sudo printf "
 az login --identity
 podman login ghcr.io --tls-verify --username '$github_username' --password '$github_token'
 sudo az storage blob directory download --container 'profile' --account-name '$storage_account_name' --source-path '*' --destination-path '/var/profile/' --recursive
-sudo podman run -p 8100:80 --name profile --restart unless-stopped --replace --tls-verify --pull always -d -v /var/profile/nginx.conf:/etc/nginx/nginx.conf -v /var/profile/error.log:/var/log/nginx/error.log -v /var/profile/access.log:/var/log/nginx/access.log -v /var/profile/:/var/profile/ ghcr.io/devstarops/devstarops-profile:main
+sudo podman run -p 8100:80 --name profile --restart unless-stopped --replace --tls-verify --pull always -d -v /var/profile/nginx.conf:/etc/nginx/nginx.conf -v /var/profile/error.log:/var/log/nginx/error.log -v /var/profile/access.log:/var/log/nginx/access.log -v /var/profile/:/var/profile/ ghcr.io/gordonbeeming/devstarops-profile:main
 " >> /var/profile/update.sh
 cd /var/profile/
 sudo chmod u+x update.sh
@@ -61,7 +61,7 @@ sudo printf "
 az login --identity
 podman login ghcr.io --tls-verify --username '$github_username' --password '$github_token'
 sudo az storage blob directory download --container 'demos' --account-name '$storage_account_name' --source-path '*' --destination-path '/var/demos/' --recursive
-sudo podman run -p 8102:80 --name demos --restart unless-stopped --replace --tls-verify --pull always -d -v /var/demos/nginx.conf:/etc/nginx/nginx.conf -v /var/demos/error.log:/var/log/nginx/error.log -v /var/demos/access.log:/var/log/nginx/access.log -v /var/demos/:/var/demos/ ghcr.io/devstarops/devstarops-demos:main
+sudo podman run -p 8102:80 --name demos --restart unless-stopped --replace --tls-verify --pull always -d -v /var/demos/nginx.conf:/etc/nginx/nginx.conf -v /var/demos/error.log:/var/log/nginx/error.log -v /var/demos/access.log:/var/log/nginx/access.log -v /var/demos/:/var/demos/ ghcr.io/gordonbeeming/devstarops-demos:main
 " >> /var/demos/update.sh
 cd /var/demos/
 sudo chmod u+x update.sh
@@ -77,7 +77,7 @@ sudo printf "
 az login --identity
 podman login ghcr.io --tls-verify --username '$github_username' --password '$github_token'
 sudo az storage blob directory download --container 'blog' --account-name '$storage_account_name' --source-path '*' --destination-path '/var/blog/' --recursive
-sudo podman run -p 8101:5000 --name blog --restart unless-stopped --replace --tls-verify --pull always -d -v /var/blog/error.log:/var/log/nginx/error.log -v /var/blog/access.log:/var/log/nginx/access.log -v /var/blog/:/var/blog/ ghcr.io/devstarops/blog:main
+sudo podman run -p 8101:5000 --name blog --restart unless-stopped --replace --tls-verify --pull always -d -v /var/blog/error.log:/var/log/nginx/error.log -v /var/blog/access.log:/var/log/nginx/access.log -v /var/blog/:/var/blog/ ghcr.io/gordonbeeming/blog:main
 " >> /var/blog/update.sh
 cd /var/blog/
 sudo chmod u+x update.sh
